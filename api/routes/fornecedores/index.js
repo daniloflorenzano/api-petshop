@@ -19,14 +19,15 @@ router.post('/', async (req, res) => {
         res.status(201);
         res.send(
             JSON.stringify(fornecedor)
-        )
+        );
 
     } catch (error) {
+        res.status(400)
         res.send(
             JSON.stringify({
                 message: error.message
             })
-        )
+        );
     }
 })
 
@@ -39,14 +40,15 @@ router.get('/:idFornecedor', async (req, res) => {
         res.status(200);
         res.send(
             JSON.stringify(fornecedor)
-        )
+        );
 
     } catch (error) {
+        res.status(404);
         res.send(
             JSON.stringify({
                 message: error.message
             })
-        )
+        );
     }
 })
 
@@ -59,14 +61,15 @@ router.put('/:idFornecedor', async (req, res) => {
         const fornecedor = new Fornecedor(data);
         await fornecedor.update()
         res.status(204);
-        res.end()
+        res.end();
 
     } catch (error) {
+        res.status(400);
         res.send(
             JSON.stringify({
                 message: error.message
             })
-        )
+        );
     }
 })
 
@@ -81,11 +84,12 @@ router.delete('/:idFornecedor', async (req, res) => {
         res.end();
 
     } catch (error) {
+        res.status(404);
         res.send(
             JSON.stringify({
                 message: error.message
             })
-        )
+        );
     }
 })
 
