@@ -45,6 +45,7 @@ router.put('/:idFornecedor', async (req, res) => {
         const fornecedor = new Fornecedor(data);
         await fornecedor.update()
         res.end()
+
     } catch (error) {
         res.send(
             JSON.stringify({
@@ -53,5 +54,23 @@ router.put('/:idFornecedor', async (req, res) => {
         )
     }
 })
+
+router.delete('/:idFornecedor', async (req, res) => {
+
+    try {
+        const id = req.params.idFornecedor;
+        const fornecedor = new Fornecedor({ id: id });
+        await fornecedor.getById();
+        await fornecedor.remove();
+        res.end();
+
+    } catch (error) {
+        JSON.stringify({
+            message: error.message
+        })
+    }
+})
+
+
 
 module.exports = router;
