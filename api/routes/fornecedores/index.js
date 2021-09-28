@@ -65,9 +65,11 @@ router.delete('/:idFornecedor', async (req, res) => {
         res.end();
 
     } catch (error) {
-        JSON.stringify({
-            message: error.message
-        })
+        res.send(
+            JSON.stringify({
+                message: error.message
+            })
+        )
     }
 })
 
