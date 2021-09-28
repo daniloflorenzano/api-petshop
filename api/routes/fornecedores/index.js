@@ -10,12 +10,22 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    const recievedData = req.body
-    const fornecedor = new Fornecedor(recievedData);
-    await fornecedor.create();
-    res.send(
-        JSON.stringify(fornecedor)
-    )
+
+    try {
+        const recievedData = req.body
+        const fornecedor = new Fornecedor(recievedData);
+        await fornecedor.create();
+        res.send(
+            JSON.stringify(fornecedor)
+        )
+
+    } catch (error) {
+        res.send(
+            JSON.stringify({
+                message: error.message
+            })
+        )
+    }
 })
 
 router.get('/:idFornecedor', async (req, res) => {

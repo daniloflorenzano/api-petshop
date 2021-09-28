@@ -13,6 +13,8 @@ class Fornecedor {
     }
 
     async create() {
+
+        this.validate()
         const res = await TableFornecedor.insert({
             empresa: this.empresa,
             email: this.email,
@@ -57,6 +59,18 @@ class Fornecedor {
 
     async remove() {
         return TableFornecedor.remove(this.id);
+    }
+
+    validate() {
+        const fields = ['empresa', 'email', 'categoria'];
+        
+        fields.forEach(field => {
+            const value = this[field];
+
+            if(typeof value !== 'string' || value.length === 0) {
+                throw new Error(`O campo '${field}' está inválido`);
+            }
+        })
     }
 }
 
