@@ -17,10 +17,19 @@ module.exports = {
             }
         })
 
-        if(!finded) {
+        if (!finded) {
             throw new Error('Fornecedor não encontrado')
         }
 
         return finded;
+    },
+
+    async update(id, dataForUpdate) {
+        return Model.update(
+            dataForUpdate,
+            {
+                where: { id: id }
+            }
+        )
     }
 }

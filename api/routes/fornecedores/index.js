@@ -27,7 +27,25 @@ router.get('/:idFornecedor', async (req, res) => {
         res.send(
             JSON.stringify(fornecedor)
         )
-    } catch(error) {
+    } catch (error) {
+        res.send(
+            JSON.stringify({
+                message: error.message
+            })
+        )
+    }
+})
+
+router.put('/:idFornecedor', async (req, res) => {
+
+    try {
+        const id = req.params.idFornecedor;
+        const recievedData = req.body;
+        const data = Object.assign({}, recievedData, { id: id });
+        const fornecedor = new Fornecedor(data);
+        await fornecedor.update()
+        res.end()
+    } catch (error) {
         res.send(
             JSON.stringify({
                 message: error.message
