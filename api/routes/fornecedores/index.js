@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const TableFornecedor = require('./TableFornecedor');
 const Fornecedor = require('./Fornecedor');
+const instance = require('../../database');
+const NotFound = require('../../errors/NotFound');
 
 router.get('/', async (req, res) => {
     const result = await TableFornecedor.list()
@@ -52,7 +54,7 @@ router.get('/:idFornecedor', async (req, res) => {
     }
 })
 
-router.put('/:idFornecedor', async (req, res) => {
+router.put('/:idFornecedor', async (req, res, next) => {
 
     try {
         const id = req.params.idFornecedor;
@@ -64,12 +66,7 @@ router.put('/:idFornecedor', async (req, res) => {
         res.end();
 
     } catch (error) {
-        res.status(400);
-        res.send(
-            JSON.stringify({
-                message: error.message
-            })
-        );
+        next(error)
     }
 })
 
