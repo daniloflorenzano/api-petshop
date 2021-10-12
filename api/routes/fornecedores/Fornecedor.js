@@ -1,4 +1,6 @@
 const TableFornecedor = require('./TableFornecedor');
+const InvalidField = require('../../errors/InvalidField');
+const MissingData = require('../../errors/MissingData');
 
 class Fornecedor {
 
@@ -51,7 +53,7 @@ class Fornecedor {
         })
 
         if(Object.keys(dataForUpdate).length === 0) {
-            throw new Error('Não foram fornecidos dados para atualizar')
+            throw new MissingData();
         }
 
         await TableFornecedor.update(this.id, dataForUpdate);
@@ -68,7 +70,7 @@ class Fornecedor {
             const value = this[field];
 
             if(typeof value !== 'string' || value.length === 0) {
-                throw new Error(`O campo '${field}' está inválido`);
+                throw new InvalidField(field);
             }
         })
     }

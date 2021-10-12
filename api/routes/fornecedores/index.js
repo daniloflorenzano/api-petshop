@@ -12,8 +12,7 @@ router.get('/', async (req, res) => {
     );
 })
 
-router.post('/', async (req, res) => {
-
+router.post('/', async (req, res, next) => {
     try {
         const recievedData = req.body
         const fornecedor = new Fornecedor(recievedData);
@@ -24,17 +23,11 @@ router.post('/', async (req, res) => {
         );
 
     } catch (error) {
-        res.status(400)
-        res.send(
-            JSON.stringify({
-                message: error.message
-            })
-        );
+        next(error);
     }
 })
 
-router.get('/:idFornecedor', async (req, res) => {
-
+router.get('/:idFornecedor', async (req, res, next) => {
     try {
         const id = req.params.idFornecedor;
         const fornecedor = new Fornecedor({ id: id });
@@ -45,17 +38,11 @@ router.get('/:idFornecedor', async (req, res) => {
         );
 
     } catch (error) {
-        res.status(404);
-        res.send(
-            JSON.stringify({
-                message: error.message
-            })
-        );
+        next(error);
     }
 })
 
 router.put('/:idFornecedor', async (req, res, next) => {
-
     try {
         const id = req.params.idFornecedor;
         const recievedData = req.body;
@@ -70,8 +57,7 @@ router.put('/:idFornecedor', async (req, res, next) => {
     }
 })
 
-router.delete('/:idFornecedor', async (req, res) => {
-
+router.delete('/:idFornecedor', async (req, res, next) => {
     try {
         const id = req.params.idFornecedor;
         const fornecedor = new Fornecedor({ id: id });
@@ -81,15 +67,8 @@ router.delete('/:idFornecedor', async (req, res) => {
         res.end();
 
     } catch (error) {
-        res.status(404);
-        res.send(
-            JSON.stringify({
-                message: error.message
-            })
-        );
+        next(error);
     }
 })
-
-
 
 module.exports = router;
