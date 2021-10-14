@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
         res.getHeader('Content-Type')
     )
     res.send(
-        serializer.serilize(result)
+        serializer.serialize(result)
     );
 })
 
@@ -24,7 +24,7 @@ router.post('/', async (req, res, next) => {
             res.getHeader('Content-Type')
         )
         res.send(
-            serializer.serilize(fornecedor)
+            serializer.serialize(fornecedor)
         );
 
     } catch (error) {
@@ -39,10 +39,11 @@ router.get('/:idFornecedor', async (req, res, next) => {
         await fornecedor.getById()
         res.status(200);
         const serializer = new SerializerFornecedor(
-            res.getHeader('Content-Type')
+            res.getHeader('Content-Type'),
+            ['email', 'dataCriacao', 'dataAtualizacao', 'versao']
         )
         res.send(
-            serializer.serilize(fornecedor)
+            serializer.serialize(fornecedor)
         );
 
     } catch (error) {

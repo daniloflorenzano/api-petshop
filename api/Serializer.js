@@ -5,7 +5,7 @@ class Serializer {
         return JSON.stringify(data);
     }
 
-    serilize(data) {
+    serialize(data) {
         if(this.contentType === 'application/json') {
             return this.json(
                 this.filter(data)
@@ -41,15 +41,31 @@ class Serializer {
 }
 
 class SerializerFornecedor extends Serializer {
-    constructor(contentType) {
+    constructor(contentType, extraFields) {
         super();
         this.contentType = contentType;
-        this.publicFields = ['id', 'empresa', 'categoria']
+        this.publicFields = [
+            'id',
+            'empresa',
+            'categoria'
+        ].concat(extraFields || []);
+    }
+}
+
+class SerializerError extends Serializer {
+    constructor(contentType, extraFields) {
+        super();
+        this.contentType = contentType;
+        this.publicFields = [
+            'id',
+            'message'
+        ].concat(extraFields || []);
     }
 }
 
 module.exports = {
     Serializer: Serializer,
     SerializerFornecedor: SerializerFornecedor,
+    SerializerError: SerializerError,
     acceptedFormats: ['application/json']
 }
