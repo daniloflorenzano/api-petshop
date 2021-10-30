@@ -1,9 +1,9 @@
-const router = require('express').Router();
+const router = require('express').Router({ mergeParams: true });
+const Table = require('./TableProduto');
 
 router.get('/', async (req, res) => {
-    res.send(
-        JSON.stringify([])
-    )
-})
+	const produtos = await Table.list(req.params.idFornecedor);
+	res.send(JSON.stringify(produtos));
+});
 
 module.exports = router;

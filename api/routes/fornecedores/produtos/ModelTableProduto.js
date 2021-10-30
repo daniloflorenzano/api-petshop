@@ -27,7 +27,7 @@ const collums = {
 
 const options = {
 	freezeTableName: true,
-	tableName: 'fornecedores',
+	tableName: 'produto',
 	timeStamp: true,
 	createdAt: 'dataCriacao',
 	updatedAt: 'dataAtualizacao',
