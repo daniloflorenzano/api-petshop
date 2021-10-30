@@ -8,4 +8,7 @@ module.exports = {
 			},
 		});
 	},
+	insert(data) {
+		return Model.create(data);
+	},
 };
